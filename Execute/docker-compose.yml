@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  py-ia:
+    build:
+      context: .
+    image: mypytorch:1.0
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../Storage/Commands:/mnt/Commands
+      - ../Storage/Images:/mnt/Images
+      - ../Storage/Results:/mnt/Results
