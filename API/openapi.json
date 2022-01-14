@@ -1,0 +1,140 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Service",
+    "version": "1.0.0",
+    "description": "API Service endpoints"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9000/api"
+    }
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "tags": [
+          "ping"
+        ],
+        "summary": "To ping API"
+      },
+      "responses": {
+          "200": {
+            "description": "Pong"
+          },
+          "401" : {
+            "description" : "Permission denied"
+          },
+          "500": {
+            "description": "The video cannot be updated"
+          }
+        }
+    },
+    "/version": {
+      "get": {
+        "tags": [
+          "ping"
+        ],
+        "summary": "To get the version of the API"
+      },
+      "responses": {
+          "200": {
+            "description": "1.0.0"
+          },
+          "401" : {
+            "description" : "Permission denied"
+          },
+          "500": {
+            "description": "The video cannot be updated"
+          }
+        }
+    },
+    "/result/:id": {
+      "get": {
+        "tags": [
+          "IA"
+        ],
+        "summary": "Get the result of a previous uploaded video. Be sure to keep upload response to know this id.",
+        "requestBody": {
+          "description": "Get result which are predictions on a video",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Send results from previously uploaded video",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultSchema"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Permission denied"
+          },
+          "500": {
+            "description": "The video cannot be updated"
+          }
+        }
+      }
+    },
+    "/upload": {
+      "post": {
+        "tags": [
+          "IA"
+        ],
+        "summary": "Upload a video to process it",
+        "requestBody": {
+          "description": "Upload video",
+          "required": true,
+          "content": {
+            "form-data": {
+              "schema": {
+                "type" : "object",
+                "properties" : {
+                    "name": {
+                      "type": "string",
+                      "example":"myFileName.mp4",
+                      "format": "url"
+                    },
+                    
+                    "video":{
+                      "type": "file",
+                      "example":"File",
+                      "format": ".mp4"
+                    }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Video uploaded"
+          },
+          "401" : {
+            "description" : "Permission denied"
+          },
+          "500": {
+            "description": "The video cannot be updated"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResultSchema":{
+        "type": "object",
+        "properties":{
+          "array":{
+            "type":"array",
+            "example": "[p1,p2,p3,p4,p5,p0]",
+            "format" : "[p1 : number, p2 : number, p3 : number, p4 : number, p5 : number]"
+          }
+        }
+      }
+    }
+  }
+}

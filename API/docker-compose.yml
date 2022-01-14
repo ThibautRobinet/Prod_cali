@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  api-server:
+    build:
+      context: .
+    image: api-server:1.0
+    env_file:
+      - .env
+    ports:
+      - "9000:9000"
+    volumes:
+      - ../Storage/Uploads/:/mnt/Uploads/
+      - ../Storage/Results/:/mnt/Results/
+      - ../Storage/Commands:/mnt/Commands/
+      - ./src/:/src

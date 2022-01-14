@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  py-process:
+    build:
+      context: .
+    image: mypython:1.0
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../Storage/Commands:/mnt/Commands
+      - ../Storage/Images:/mnt/Images
+      - ../Storage/Uploads:/mnt/Uploads

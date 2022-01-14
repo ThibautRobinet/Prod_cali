@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  api-server:
+    build:
+      context: ./API
+    image: api-server:1.0
+    env_file:
+      - ./API/.env
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./Storage/Uploads/:/mnt/Uploads/
+      - ./Storage/Results/:/mnt/Results/
+      - ./Storage/Commands:/mnt/Commands/
+      - ./API/src/:/src
+
+  py-process:
+    build:
+      context: ./Pre-process
+    image: mypython:1.0
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./Storage/Commands:/mnt/Commands
+      - ./Storage/Images:/mnt/Images
+      - ./Storage/Uploads:/mnt/Uploads
+
+  py-ia:
+    build:
+      context: ./Execute
+    image: mypytorch:1.0
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./Storage/Commands:/mnt/Commands
+      - ./Storage/Images:/mnt/Images
+      - ./Storage/Results:/mnt/Results

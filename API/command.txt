@@ -1,0 +1,38 @@
+################################
+Create api
+################################
+
+Toutes les commandes que j'ai utilisé, pour m'en souvenir si besoin
+
+npm init -y
+npm i express dotenv cors helmet
+npm i -D typescript
+npm i -D @types/node @types/express @types/dotenv @types/cors @types/helmet
+npm install typescript @types/express @types/multer @types/lokijs @types/del --save-dev
+
+npx tsc --init
+
+touch .env
+
+mkdir src
+touch src/index.ts
+
+npm i -D ts-node-dev
+
+curl http://localhost:7700/api/menu/items -i
+
+mkdir src/common
+touch src/common/http-exception.ts
+
+mkdir src/middleware
+touch src/middleware/error.middleware.ts
+curl http://localhost:9000/api/ping -i
+
+touch src/middleware/not-found.middleware.ts
+
+################################
+upload file
+################################
+npm install express multer cors
+
+curl http://localhost:9000/api/upload
